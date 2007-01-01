@@ -266,8 +266,7 @@ S.K.Mitra, J. Kaiser  (1993),
 }
 
 \seealso{
-\code{\link{taper}}.
-}
+\code{\link{taper}}.}
 
 \examples{
 ## change plot layout 

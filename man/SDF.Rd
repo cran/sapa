@@ -267,9 +267,7 @@ Cambridge University Press, Cambridge, UK.
 }
 
 \seealso{
-\code{\link{taper}},
-\code{\link{ACVS}}.
-}
+\code{\link{taper}}, \code{\link{ACVS}}.}
 
 \examples{
 ## calculate various SDF estimates for the 

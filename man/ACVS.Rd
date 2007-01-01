@@ -29,8 +29,7 @@ a numeric vector containing the single-sided ACVS for lags \eqn{k=0,\ldots,N-1}{
 of the input time series.
 }
 \seealso{
-\code{\link{SDF}}.
-}
+\code{\link{SDF}}.}
 
 \examples{
 ## calculate the ACVS for an N(0,1) realization 
