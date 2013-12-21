@@ -46,7 +46,7 @@
       stop(paste("parameter n.tapers =", n.tapers, "cannot be greater than\nparameter N =", N))
     if(n.tapers > 1) 
     {
-        result <- .Call("R_sapa_dpss", as.integer(N), as.integer(n.taper), as.double(bandwidth))
+        result <- .Call("R_sapa_dpss", as.integer(N), as.integer(n.taper), as.double(bandwidth), PACKAGE = "sapa")
         dim(result) <- c(N, n.tapers)
         result <- result[, n.tapers:1]
         for(k in 1:as.integer((n.tapers + 1)/2) * 2 - 1)
@@ -171,11 +171,12 @@
   }
   else{
 
-    z <- .Call("RS_signal_taper",
-      match(taperstr,supported) - 1, n.taper, n.sample, param, normalize,
-      COPY=rep(FALSE,5),
-      CLASSES=c(rep("integer",3), "numeric", "logical"),
-      PACKAGE="ifultools")
+    z <- itCall("RS_signal_taper",
+      match(taperstr,supported) - 1, n.taper, n.sample, param, normalize)
+      #,
+      #COPY=rep(FALSE,5),
+      #CLASSES=c(rep("integer",3), "numeric", "logical"),
+      #PACKAGE="ifultools")
   }
 
   if (n.taper == 1)

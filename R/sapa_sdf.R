@@ -80,7 +80,7 @@
     checkScalarType(default.taper,"character")
   	if (!is(taper.,"taper"))
       taper. <- taper(type=ifelse1(is.null(taper.), default.taper, taper.),
-        n.sample=n.sample, norm=norm, ...)
+        n.sample=n.sample, normalize=norm, ...)
 
     # check taper attributes
     if (attr(taper., "n.sample") != n.sample)
@@ -109,12 +109,13 @@
     # issue periodogram by default
     taper. <- createTaper(taper., "rectangle", n.sample)
 
-    S <- .Call("RS_fractal_spectral_density_function_direct",
+    S <- itCall("RS_fractal_spectral_density_function_direct",
       x, as.vector(taper.),
-      as.logical(center), as.logical(recenter), TRUE, as.integer(npad),
-      COPY=rep(FALSE,6),
-      CLASSES = c(rep("matrix", 2), rep("logical",3), "integer"),
-      PACKAGE="ifultools")
+      as.logical(center), as.logical(recenter), TRUE, as.integer(npad))
+        #,
+      #COPY=rep(FALSE,6),
+      #CLASSES = c(rep("matrix", 2), rep("logical",3), "integer"),
+      #PACKAGE="ifultools")
   }
   else if (method == "lag window"){
 
@@ -123,12 +124,13 @@
     taper. <- createTaper(taper., "parzen", n.sample, cutoff = n.sample %/% 2)
     window <- createTaper(window, "hanning", n.sample)
 
-    S <- .Call("RS_fractal_spectral_density_function_lag_window",
+    S <- itCall("RS_fractal_spectral_density_function_lag_window",
       x, as.vector(taper.), as.vector(window),
-      as.logical(center), as.logical(recenter), TRUE, as.integer(npad),
-      COPY=rep(FALSE,7),
-      CLASSES = c(rep("matrix", 3), rep("logical",3), "integer"),
-      PACKAGE="ifultools")
+      as.logical(center), as.logical(recenter), TRUE, as.integer(npad))
+      #,
+      #COPY=rep(FALSE,7),
+      #CLASSES = c(rep("matrix", 3), rep("logical",3), "integer"),
+      #PACKAGE="ifultools")
   }
   else if (method == "wosa"){
 
@@ -141,23 +143,25 @@
     if (overlap < 0.0 || overlap >= 1)
       stop("Overlap fraction must be on 0 <= overlap < 1")
 
-    S <- .Call("RS_fractal_spectral_density_function_wosa",
+    S <- itCall("RS_fractal_spectral_density_function_wosa",
       x, as.vector(taper.), as.numeric(overlap),
-      as.logical(center), as.logical(recenter), TRUE, as.integer(npad),
-      COPY=rep(FALSE,7),
-      CLASSES = c(rep("matrix", 2), "numeric", rep("logical",3), "integer"),
-      PACKAGE="ifultools")
+      as.logical(center), as.logical(recenter), TRUE, as.integer(npad))
+        #,
+      #COPY=rep(FALSE,7),
+      #CLASSES = c(rep("matrix", 2), "numeric", rep("logical",3), "integer"),
+      #PACKAGE="ifultools")
   }
   else if (method == "multitaper"){
 
     taper. <- createTaper(taper., "sine", n.sample, n.taper=min(c(n.sample, n.taper)))
 
-    S <- .Call("RS_fractal_spectral_density_function_multitaper",
+    S <- itCall("RS_fractal_spectral_density_function_multitaper",
       x, as.matrix(taper.),
-      as.logical(center), as.logical(recenter), TRUE, as.integer(npad),
-      COPY=rep(FALSE,6),
-      CLASSES = c(rep("matrix", 2), rep("logical", 3), "integer"),
-      PACKAGE="ifultools")
+      as.logical(center), as.logical(recenter), TRUE, as.integer(npad))
+  #,
+      #COPY=rep(FALSE,6),
+      #CLASSES = c(rep("matrix", 2), rep("logical", 3), "integer"),
+      #PACKAGE="ifultools")
   }
   else
     stop("SDF estimator is unsupported")
@@ -372,9 +376,11 @@
 
 "ACVS" <- function(x, biased=TRUE, center=TRUE)
 {
-  as.vector(.Call("RS_math_acvs",
-    as.numeric(x), as.logical(biased), as.logical(center),
-    COPY = rep(FALSE,3),
-    CLASSES = c("numeric",rep("logical",2)),
-    PACKAGE="ifultools"))
+  as.vector(itCall("RS_math_acvs",
+    as.numeric(x), as.logical(biased), as.logical(center))
+    #,
+    #COPY = rep(FALSE,3),
+    #CLASSES = c("numeric",rep("logical",2)),
+    #PACKAGE="ifultools")
+)
 }
