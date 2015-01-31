@@ -269,6 +269,7 @@ S.K.Mitra, J. Kaiser  (1993),
 \code{\link{taper}}.}
 
 \examples{
+require(ifultools)
 ## change plot layout 
 gap <- 0.11
 old.plt <- splitplot(4,4,1,gap=gap)

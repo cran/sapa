@@ -35,7 +35,7 @@ of the input time series.
 ## calculate the ACVS for an N(0,1) realization 
 plot(seq(0,99), ACVS(rnorm(100)), type="l", lwd=2,
     xlab="lag",ylab="ACVS(rnorm(100))")
-gridOverlay()
+ifultools::gridOverlay()
 }
 \keyword{univar}
 

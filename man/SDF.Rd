@@ -273,6 +273,8 @@ Cambridge University Press, Cambridge, UK.
 ## calculate various SDF estimates for the 
 ## sunspots series. remove mean component for a 
 ## better comparison. 
+
+require(ifultools)
 data <- as.numeric(sunspots)
 methods <- c("direct","wosa","multitaper",
     "lag window")
